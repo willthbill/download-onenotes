@@ -5,6 +5,6 @@ ACCESS_TOKEN=**your access token**
 
 Get the access token at: https://developer.microsoft.com/en-us/graph/graph-explorer
 
-Run the following command:
-
+Run the following commands:
+npm install
 node main.js outputfolder
