@@ -1,15 +1,24 @@
 require('dotenv').config()
 
-const fetch = require("node-fetch");
+const NodeFetch = require("node-fetch");
 const fs = require('fs');
 const writeFile = fs.writeFile;
 const request = require('request');
 const { JSDOM } = require("jsdom");
-const { resolve } = require('path');
 
 const basefolder = "./downloads";
 
 let sections, notebooks;
+
+const fetch = (url, options) => {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            NodeFetch(url, options).then(res => {
+                resolve(res)
+            })
+        }, 200)
+    })
+}
 
 const fixWindowsStuff = s => {
     return s
