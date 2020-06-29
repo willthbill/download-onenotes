@@ -7,7 +7,7 @@ const request = require('request');
 const { JSDOM } = require("jsdom");
 const { resolve } = require('path');
 
-const basefolder = process.argv[2];
+const basefolder = "./downloads";
 
 let sections, notebooks;
 
