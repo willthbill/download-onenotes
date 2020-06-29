@@ -11,7 +11,7 @@ const basefolder = "./downloads";
 
 let sections, notebooks;
 
-const fixWindowsStuff = (s) => {
+const fixWindowsStuff = s => {
     return s
     .replace("/","")
     .replace("\\","")
@@ -31,8 +31,6 @@ const config = {
     },
 }
 
-console.log(config)
-
 const getImage = (filename, url) => {
     return new Promise(resolve => {
         request(url, {
@@ -42,7 +40,7 @@ const getImage = (filename, url) => {
             }
         }, (error, response, body) => {
             writeFile(filename, body, 'binary', (err) => {
-                console.log("downloaded image:", filename)
+                console.log("           downloaded image:", filename)
                 resolve();
             });
         });
@@ -65,7 +63,7 @@ const analyseModifyAndDownloadImages = async (folder, html, pageName) => {
         const type = image.getAttribute("data-src-type")
         const filetype = type.substring(type.indexOf("/") + 1, type.length);
         const name = `${folder}/image${count}.${filetype}`;
-        console.log("found image of type:", type, "and with name:", name)
+        console.log("           found image of type:", type, "and with name:", name)
         image.setAttribute("src", `./image${count}.${filetype}`)
         await getImage(name, src)
     }
@@ -73,20 +71,23 @@ const analyseModifyAndDownloadImages = async (folder, html, pageName) => {
 }
 
 const getPage = (url, folder, pageName) => {
-    fs.mkdir(folder, () => {
-        fetch(
-            url,
-            config
-        ).then(res => {
-            return res.text()
-        }).then(res => {
-            analyseModifyAndDownloadImages(folder, res, pageName).then(html => {
-                writeFile(`${folder}/index.html`, html, "utf8", () => {
-                    console.log("successfully downloaded and saved page:", pageName)
+    return new Promise(resolve => {
+        fs.mkdir(folder, () => {
+            fetch(
+                url,
+                config
+            ).then(res => {
+                return res.text()
+            }).then(res => {
+                analyseModifyAndDownloadImages(folder, res, pageName).then(html => {
+                    writeFile(`${folder}/index.html`, html, "utf8", () => {
+                        console.log("           successfully downloaded and saved page:", pageName)
+                        resolve()
+                    })
                 })
             })
-        })
-    });
+        });
+    })
 }
 
 const getJSON = url => {
@@ -99,41 +100,47 @@ const getJSON = url => {
 }
 
 const getSection = (url, folder) => {
-    fs.mkdir(folder, () => {
-        getJSON(url).then(json => {
-            const pages = json.value;
-            for(const page of pages){
-                const name = page.title;
-                console.log("processing page:", name);
-                const url = page.contentUrl;
-                const newFolder = `${folder}/${fixWindowsStuff(name)}`;
-                getPage(url, newFolder, name)
-            }
+    return new Promise(resolve => {
+        fs.mkdir(folder, () => {
+            getJSON(url).then(async json => {
+                const pages = json.value;
+                for(const page of pages){
+                    const name = page.title;
+                    console.log("       processing page:", name);
+                    const url = page.contentUrl;
+                    const newFolder = `${folder}/${fixWindowsStuff(name)}`;
+                    await getPage(url, newFolder, name)
+                }
+                resolve()
+            })
         })
     })
 }
 
 const getNoteBook = (id, folder) => {
-    fs.mkdir(folder, () => {
-        for(const section of sections){
-            if(section.parentNotebook.id == id){
-                const name = section.displayName;
-                console.log("processing section:", name)
-                const url = section.pagesUrl;
-                const newFolder = `${folder}/${fixWindowsStuff(name)}`;
-                getSection(url, newFolder);
+    return new Promise(resolve => {
+        fs.mkdir(folder, async () => {
+            for(const section of sections){
+                if(section.parentNotebook.id == id){
+                    const name = section.displayName;
+                    console.log("   processing section:", name)
+                    const url = section.pagesUrl;
+                    const newFolder = `${folder}/${fixWindowsStuff(name)}`;
+                    await getSection(url, newFolder);
+                }
             }
-        }
+            resolve()
+        })
     })
 }
 
-const processAllNotebooks = folder => {
+const processAllNotebooks = async folder => {
     for(const notebook of notebooks){
         const name = notebook.displayName;
         console.log("processing notebook:", name)
         const id = notebook.id;
         const newFolder = `${folder}/${fixWindowsStuff(name)}`;
-        getNoteBook(id, newFolder);
+        await getNoteBook(id, newFolder);
     }
 }
 
@@ -161,7 +168,6 @@ const start = () => {
         console.log("fetched notebooks and sections")
         sections = secs;
         notebooks = notes;
-        console.log(notebooks)
         processAllNotebooks(basefolder);
     })
 }
