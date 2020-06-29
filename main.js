@@ -31,6 +31,8 @@ const config = {
     },
 }
 
+console.log(config)
+
 const getImage = (filename, url) => {
     return new Promise(resolve => {
         request(url, {
@@ -159,6 +161,7 @@ const start = () => {
         console.log("fetched notebooks and sections")
         sections = secs;
         notebooks = notes;
+        console.log(notebooks)
         processAllNotebooks(basefolder);
     })
 }
