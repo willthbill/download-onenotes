@@ -119,15 +119,19 @@ const getJSON = url => {
     })
 }
 
-const getSection = (url, folder) => {
+const getSection = (url, folder, sectionName) => {
     return new Promise((resolve, reject) => {
         fs.mkdir(folder, () => {
+            fs.writeFileSync(`${folder}/index.html`, `<head><meta charset="utf-8" /></head><h1>Pages in section: ${sectionName}</h1>`)
             getJSON(url).then(async json => {
                 const pages = json.value;
                 if(!pages) resolve(false)
                 else{
                     for(const page of pages){
                         const name = page.title;
+                        fs.appendFileSync(`${folder}/index.html`, `
+                            <a href="./${fixWindowsStuff(name)}/index.html"><h2>${name}</h2></a>
+                        `)
                         console.log("       processing page:", name);
                         const url = page.contentUrl;
                         const newFolder = `${folder}/${fixWindowsStuff(name)}`;
@@ -143,18 +147,22 @@ const getSection = (url, folder) => {
     })
 }
 
-const getNoteBook = (id, folder) => {
+const getNoteBook = (id, folder, notebookName) => {
     return new Promise(resolve => {
         fs.mkdir(folder, async () => {
+            fs.writeFileSync(`${folder}/index.html`, `<head><meta charset="utf-8" /></head><h1>Sections in notebook: ${notebookName}</h1>`)
             for(const section of sections){
                 if(section.parentNotebook.id == id){
                     const name = section.displayName;
+                    fs.appendFileSync(`${folder}/index.html`, `
+                        <a href="./${fixWindowsStuff(name)}/index.html"><h2>${name}</h2></a>
+                    `)
                     console.log("   processing section:", name)
                     const url = section.pagesUrl;
                     const newFolder = `${folder}/${fixWindowsStuff(name)}`;
                     let success = false;
                     while(!success){
-                        success = await getSection(url, newFolder);
+                        success = await getSection(url, newFolder, name);
                     }
                 }
             }
@@ -166,10 +174,13 @@ const getNoteBook = (id, folder) => {
 const processAllNotebooks = async folder => {
     for(const notebook of notebooks){
         const name = notebook.displayName;
+        fs.appendFileSync(`${folder}/index.html`, `
+            <a href="./${fixWindowsStuff(name)}/index.html"><h2>${name}</h2></a>
+        `)
         console.log("processing notebook:", name)
         const id = notebook.id;
         const newFolder = `${folder}/${fixWindowsStuff(name)}`;
-        await getNoteBook(id, newFolder);
+        await getNoteBook(id, newFolder, name);
     }
 }
 
@@ -197,6 +208,7 @@ const start = () => {
         console.log("fetched notebooks and sections")
         sections = secs;
         notebooks = notes;
+        fs.writeFileSync(basefolder + "/index.html", `<head><meta charset="utf-8" /></head><h1>Notebooks</h1>`)
         processAllNotebooks(basefolder);
     })
 }
