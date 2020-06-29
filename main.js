@@ -1,41 +1,166 @@
 require('dotenv').config()
 
 const fetch = require("node-fetch");
-const { writeFile } = require('fs');
+const fs = require('fs');
+const writeFile = fs.writeFile;
 const request = require('request');
+const { JSDOM } = require("jsdom");
+const { resolve } = require('path');
 
-const getContent = async () => {
-    console.log(`Bearer ${process.env.ACCESS_TOKEN}`)
-    fetch(
-        "https://graph.microsoft.com/v1.0/users/115170e9-95f0-4986-9952-a244e9167b35/onenote/pages/1-ba682f9205dc475fb82d09322338def2!1-f6ef017f-6f8b-4060-bd1f-4263b00469f7/content?includeIDs=true",
-        {
-            method: 'GET',
-            headers: { 
+const basefolder = process.argv[2];
+
+let sections, notebooks;
+
+const fixWindowsStuff = (s) => {
+    return s
+    .replace("/","")
+    .replace("\\","")
+    .replace(":","")
+    .replace("*","")
+    .replace("?","")
+    .replace("\"","")
+    .replace("<","")
+    .replace(">","")
+    .replace("|","")
+}
+
+const config = {
+    method: 'GET',
+    headers: { 
+        Authorization : `Bearer ${process.env.ACCESS_TOKEN}`
+    },
+}
+
+const getImage = (filename, url) => {
+    return new Promise(resolve => {
+        request(url, {
+            encoding: 'binary',
+            headers : {
                 Authorization : `Bearer ${process.env.ACCESS_TOKEN}`
-            },
-        }
-    ).then(res => {
-        return res.text()
-    }).then(res => {
-        writeFile("./test.html", res, "utf8", () => {
+            }
+        }, (error, response, body) => {
+            writeFile(filename, body, 'binary', (err) => {
+                console.log("downloaded image:", filename)
+                resolve();
+            });
+        });
+    })
+}
 
+const analyseModifyAndDownloadImages = async (folder, html, pageName) => {
+    const dom = new JSDOM(html, { runScripts: "outside-only" });
+    dom.window.eval(`
+        document.body.innerHTML = 
+           "<h1>${pageName}</h1>" +
+           document.body.innerHTML
+        ;
+    `);
+    const images = dom.window.document.querySelectorAll("img");
+    let count = 0;
+    for(const image of images){
+        count++;
+        const src = image.getAttribute("src");
+        const type = image.getAttribute("data-src-type")
+        const filetype = type.substring(type.indexOf("/") + 1, type.length);
+        const name = `${folder}/image${count}.${filetype}`;
+        console.log("found image of type:", type, "and with name:", name)
+        image.setAttribute("src", `./image${count}.${filetype}`)
+        await getImage(name, src)
+    }
+    return dom.serialize();
+}
+
+const getPage = (url, folder, pageName) => {
+    fs.mkdir(folder, () => {
+        fetch(
+            url,
+            config
+        ).then(res => {
+            return res.text()
+        }).then(res => {
+            analyseModifyAndDownloadImages(folder, res, pageName).then(html => {
+                writeFile(`${folder}/index.html`, html, "utf8", () => {
+                    console.log("successfully downloaded and saved page:", pageName)
+                })
+            })
+        })
+    });
+}
+
+const getJSON = url => {
+    return fetch(
+        url,
+        config
+    ).then(res => {
+        return res.json();
+    })
+}
+
+const getSection = (url, folder) => {
+    fs.mkdir(folder, () => {
+        getJSON(url).then(json => {
+            const pages = json.value;
+            for(const page of pages){
+                const name = page.title;
+                console.log("processing page:", name);
+                const url = page.contentUrl;
+                const newFolder = `${folder}/${fixWindowsStuff(name)}`;
+                getPage(url, newFolder, name)
+            }
         })
     })
 }
 
-const getImage = (filename, url) => {
-    request(url, {
-        encoding: 'binary',
-        headers : {
-            Authorization : `Bearer ${process.env.ACCESS_TOKEN}`
+const getNoteBook = (id, folder) => {
+    fs.mkdir(folder, () => {
+        for(const section of sections){
+            if(section.parentNotebook.id == id){
+                const name = section.displayName;
+                console.log("processing section:", name)
+                const url = section.pagesUrl;
+                const newFolder = `${folder}/${fixWindowsStuff(name)}`;
+                getSection(url, newFolder);
+            }
         }
-    }, (error, response, body) => {
-        writeFile(filename, body, 'binary', (err) => {});
-    });
+    })
 }
 
-getContent();
-getImage(
-    "./test.png", 
-    "https://graph.microsoft.com/v1.0/users('115170e9-95f0-4986-9952-a244e9167b35')/onenote/resources/1-50ac1182a0dd484e9ff55100e6ed0165!1-f6ef017f-6f8b-4060-bd1f-4263b00469f7/$value"
-);
+const processAllNotebooks = folder => {
+    for(const notebook of [notebooks[0]]){
+        const name = notebook.displayName;
+        console.log("processing notebook:", name)
+        const id = notebook.id;
+        const newFolder = `${folder}/${fixWindowsStuff(name)}`;
+        getNoteBook(id, newFolder);
+    }
+}
+
+const getAllNoteBooks = folder => {
+    return getJSON("https://graph.microsoft.com/v1.0/me/onenote/notebooks").then(json => {
+        return json.value;
+    })
+}
+
+const getAllSections = () => {
+    return getJSON("https://graph.microsoft.com/v1.0/me/onenote/sections").then(json => {
+        return json.value;
+    })
+}
+
+const start = () => {
+    if(!fs.existsSync(basefolder)){
+        fs.mkdirSync(basefolder);
+    }else{
+        throw "Please empty output directory and delete the folder"
+    }
+    const p1 = getAllSections();
+    const p2 = getAllNoteBooks();
+    Promise.all([p1, p2]).then(([secs, notes]) => {
+        console.log("fetched notebooks and sections")
+        sections = secs;
+        notebooks = notes;
+        processAllNotebooks(basefolder);
+    })
+}
+
+start();
