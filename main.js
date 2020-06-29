@@ -48,10 +48,14 @@ const getImage = (filename, url) => {
                 Authorization : `Bearer ${process.env.ACCESS_TOKEN}`
             }
         }, (error, response, body) => {
-            writeFile(filename, body, 'binary', (err) => {
-                console.log("           downloaded image:", filename)
-                resolve();
-            });
+            if(response.statusCode != 200){
+                resolve(false)
+            }else{
+                writeFile(filename, body, 'binary', (err) => {
+                    console.log("           downloaded image:", filename)
+                    resolve(true);
+                });
+            }
         });
     })
 }
@@ -74,7 +78,10 @@ const analyseModifyAndDownloadImages = async (folder, html, pageName) => {
         const name = `${folder}/image${count}.${filetype}`;
         console.log("           found image of type:", type, "and with name:", name)
         image.setAttribute("src", `./image${count}.${filetype}`)
-        await getImage(name, src)
+        let success = false;
+        while(!success){
+            success = await getImage(name, src);
+        }
     }
     return dom.serialize();
 }
@@ -86,12 +93,16 @@ const getPage = (url, folder, pageName) => {
                 url,
                 config
             ).then(res => {
-                return res.text()
+                if(!res.ok){
+                    resolve(false)
+                }else{
+                    return res.text()
+                }
             }).then(res => {
                 analyseModifyAndDownloadImages(folder, res, pageName).then(html => {
                     writeFile(`${folder}/index.html`, html, "utf8", () => {
                         console.log("           successfully downloaded and saved page:", pageName)
-                        resolve()
+                        resolve(true)
                     })
                 })
             })
@@ -109,18 +120,24 @@ const getJSON = url => {
 }
 
 const getSection = (url, folder) => {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
         fs.mkdir(folder, () => {
             getJSON(url).then(async json => {
                 const pages = json.value;
-                for(const page of pages){
-                    const name = page.title;
-                    console.log("       processing page:", name);
-                    const url = page.contentUrl;
-                    const newFolder = `${folder}/${fixWindowsStuff(name)}`;
-                    await getPage(url, newFolder, name)
+                if(!pages) resolve(false)
+                else{
+                    for(const page of pages){
+                        const name = page.title;
+                        console.log("       processing page:", name);
+                        const url = page.contentUrl;
+                        const newFolder = `${folder}/${fixWindowsStuff(name)}`;
+                        let success = false;
+                        while(!success){
+                            success = await getPage(url, newFolder, name);
+                        }
+                    }
+                    resolve(true)
                 }
-                resolve()
             })
         })
     })
@@ -135,7 +152,10 @@ const getNoteBook = (id, folder) => {
                     console.log("   processing section:", name)
                     const url = section.pagesUrl;
                     const newFolder = `${folder}/${fixWindowsStuff(name)}`;
-                    await getSection(url, newFolder);
+                    let success = false;
+                    while(!success){
+                        success = await getSection(url, newFolder);
+                    }
                 }
             }
             resolve()
