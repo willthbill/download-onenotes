@@ -126,7 +126,7 @@ const getNoteBook = (id, folder) => {
 }
 
 const processAllNotebooks = folder => {
-    for(const notebook of [notebooks[0]]){
+    for(const notebook of notebooks){
         const name = notebook.displayName;
         console.log("processing notebook:", name)
         const id = notebook.id;

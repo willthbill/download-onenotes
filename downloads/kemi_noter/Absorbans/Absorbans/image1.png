@@ -1,0 +1,10 @@
+{
+  "error": {
+    "code": "20173",
+    "message": "The user is issuing too many concurrent requests.",
+    "innerError": {
+      "date": "2020-06-29T20:09:45",
+      "request-id": "d2826d41-d538-449a-97e2-f6060a17a1a7"
+    }
+  }
+}

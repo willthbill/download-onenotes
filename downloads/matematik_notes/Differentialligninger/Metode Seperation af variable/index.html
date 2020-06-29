@@ -1,0 +1,127 @@
+<html lang="en-US"><head>
+		<title>Metode Seperation af variable</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="created" content="2019-01-11T13:44:00.0000000">
+	</head>
+	<body data-absolute-enabled="true" style="font-family:Calibri;font-size:11pt"><h1>Metode Seperation af variable</h1>
+		<div style="position:absolute;left:48px;top:115px;width:720px">
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Seperation af variable</span></p>
+			<ul>
+				<li>Virker på diff. lign.  Af 1. orden.</li>
+				<li>Vores afledte <span style="text-decoration:underline">skal </span>skrives som 				<math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+					<mfrac>
+						<mrow>
+							<mi>d</mi>
+							<mi>y</mi>
+						</mrow>
+						<mrow>
+							<mi>d</mi>
+							<mi>x</mi>
+						</mrow>
+					</mfrac>
+				</math>
+				</li>
+				<li>Så sepereres x'erne fra y'erne på hver side af lighedstegnet.</li>
+				<li>Vi tilføjer nu et integraletegn</li>
+				<li>Til sidst bruges maple til at venstre side til at løse højre side.</li>
+				<li>Til (aller) sidst bruges maple til at solve for y.</li>
+			</ul>
+		</div>
+		<div style="position:absolute;left:528px;top:115px;width:624px">
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Eksempel</span></p>
+			<math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mfrac>
+					<mrow>
+						<mi>d</mi>
+						<mi>y</mi>
+					</mrow>
+					<mrow>
+						<mi>d</mi>
+						<mi>x</mi>
+					</mrow>
+				</mfrac>
+				<mo>=</mo>
+				<msup>
+					<mi>y</mi>
+					<mn>2</mn>
+				</msup>
+				<mo>⋅</mo>
+				<mn>2</mn>
+				<mi>x</mi>
+			</math>
+			<math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+				<msup>
+					<mi>y</mi>
+					<mrow>
+						<mo>−</mo>
+						<mn>2</mn>
+					</mrow>
+				</msup>
+				<mo>⋅</mo>
+				<mi>d</mi>
+				<mi>y</mi>
+				<mo>=</mo>
+				<mn>2</mn>
+				<mi>x</mi>
+				<mo>&nbsp;</mo>
+				<mo>⋅</mo>
+				<mi>d</mi>
+				<mi>x</mi>
+			</math>
+			<math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mo stretchy="false">∫</mo>
+				<mrow>
+					<msup>
+						<mi>y</mi>
+						<mrow>
+							<mo>−</mo>
+							<mn>2</mn>
+						</mrow>
+					</msup>
+					<mo>&nbsp;</mo>
+					<mi>d</mi>
+					<mi>y</mi>
+				</mrow>
+				<mo>=</mo>
+				<mo stretchy="false">∫</mo>
+				<mrow>
+					<mn>2</mn>
+					<mi>x</mi>
+					<mo>&nbsp;</mo>
+					<mi>d</mi>
+					<mi>x</mi>
+				</mrow>
+			</math>
+			<p style="margin-top:0pt;margin-bottom:0pt">Maple: 			<math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mo stretchy="false">∫</mo>
+				<mrow>
+					<msup>
+						<mi>y</mi>
+						<mrow>
+							<mo>−</mo>
+							<mn>2</mn>
+						</mrow>
+					</msup>
+					<mo>&nbsp;</mo>
+					<mi>d</mi>
+					<mi>y</mi>
+				</mrow>
+				<mo>&nbsp;</mo>
+			</math>
+og 			<math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mo stretchy="false">∫</mo>
+				<mrow>
+					<mn>2</mn>
+					<mi>x</mi>
+					<mo>&nbsp;</mo>
+					<mi>d</mi>
+					<mi>x</mi>
+				</mrow>
+			</math>
+			</p>
+			<!-- Processing ParagraphNode failed -->
+			<br>
+		</div>
+	
+
+</body></html>

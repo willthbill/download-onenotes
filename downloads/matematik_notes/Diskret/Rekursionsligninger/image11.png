@@ -1,0 +1,10 @@
+{
+  "error": {
+    "code": "20166",
+    "message": "The app has issued too many requests on behalf of this user in a short time period.",
+    "innerError": {
+      "date": "2020-06-29T20:09:53",
+      "request-id": "3c8b2a83-15a6-4945-a1f1-7ea47e250685"
+    }
+  }
+}

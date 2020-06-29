@@ -1,0 +1,311 @@
+<html lang="en-US"><head>
+		<title>Algoritmer og algoritmeteori</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="created" content="2019-01-07T21:13:00.0000000">
+	</head>
+	<body data-absolute-enabled="true" style="font-family:Calibri;font-size:11pt"><h1>Algoritmer og algoritmeteori</h1>
+		<div style="position:absolute;left:48px;top:91px;width:720px">
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Rekursion</span></p>
+			<ul>
+				<li>Basecase</li>
+				<li>Removal of recursion: recursive function --&gt; recursive tail function --&gt; loops</li>
+				<li><p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Typer</span></p>
+				<ul>
+					<li>Corecursion: Bottom-up: <a href="https://www.interviewcake.com/concept/java/bottom-up">https://www.interviewcake.com/concept/java/bottom-up</a> </li>
+					<li>Top-down</li>
+					<li>Direct</li>
+					<li>Indirect</li>
+					<li>Tail</li>
+					<li>Summering gennem rekursion</li>
+				</ul>
+				</li>
+				<li>Recursive descent</li>
+				<li>Hvis dybden af træet er større end max stack size, kan man bruge sin egen stack, eks: new Stack();</li>
+				<li><p style="margin-top:0pt;margin-bottom:0pt">Pruning</p>
+				<ul>
+					<li>Minimere mængden af forgreningerne (på en måde greedy, dog virker det altid).</li>
+					<br>
+				</ul>
+				</li>
+			</ul>
+			<br>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Grafteori</span></p>
+			<ul>
+				<li><p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Terminology:</span></p>
+				<ul>
+					<li>Node / vertex / knude</li>
+					<li>Kant / edge</li>
+					<li>Selfloop edge (u,u)</li>
+					<li>Repeated edges</li>
+					<li>Vægt</li>
+					<li>Retning / (directed / undirected)</li>
+					<li>Arcs (directed edges)</li>
+					<li>Degree of a vertex (amount of edges)</li>
+					<li>Outdegree of a vertex (outgoing  edges in directed graph)</li>
+					<li>Adjacent vertices (edge between them)</li>
+					<li>Sparse (few edges out of total: ((N x (N-1))/2)) otherwise it is dense</li>
+					<li>Vertex x is said to be reachable from vertex u if a path exists from u to x.</li>
+					<li>Simple path (each vertex only once)</li>
+					<li>Cycle (path from some vertex to that same vertex, A cycle is simple if it contains no vertex more than once, except the start (and end) vertex)</li>
+					<li><p style="margin-top:0pt;margin-bottom:0pt">Connectedness (there is a path from every vertex to every other vertex)</p>
+					<ul>
+						<li>strongly connected if there is a path from every vertex to every other vertex.</li>
+					</ul>
+					</li>
+					<li>Komponent / component</li>
+					<li>Forbundent komponent / connected component</li>
+					<li>Subgraph (Graph G' = (V', E') is a subgraph of G = (V, E) if V' is a subset of V and E' is a subset of E. The subgraph of G induced by V' is the graph (V', E'), where E' consists of all the edges of E that are between members of V' )</li>
+					<li><p style="margin-top:0pt;margin-bottom:0pt">Tree (An undirected graph is said to be a tree if it contains no cycles and is connected.)</p>
+					<ul>
+						<li>Root</li>
+						<li>Parent</li>
+						<li>Children</li>
+						<li>leaf</li>
+					</ul>
+					</li>
+					<li>Forest (no cycles, not connect, undirected)</li>
+					<li>A directed acyclic graph is often referred to as a dag.</li>
+					<li>Complete graph (an edge between every pair of vertices)</li>
+					<li>A graph is said to be bipartite if the vertices can be split into two sets V 1 and V 2 such there are no edges between two vertices of V 1 or two vertices of V 2. </li>
+					<li>Implicit (no need for representation)</li>
+					<li>Multigraph</li>
+					<li>Selfloops</li>
+					<li>Planar graph</li>
+					<li>Traversable graph (euler path)</li>
+					<li>Pendant vertices</li>
+				</ul>
+				</li>
+				<li><p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Grafsøgning:</span></p>
+				<ul>
+					<li>Dybde først søgning (Er a og b I samme forbunde komponent, depth first)</li>
+					<li>Bredde først søgning (shortest path, breath first))</li>
+					<li>Depth First with Iterative Deepening (ID)</li>
+				</ul>
+				</li>
+				<li><p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Shortest path</span></p>
+				<ul>
+					<li>Floyd- Washall O(n^3) - find all shortest paths pairs in a graph. </li>
+					<li><p style="margin-top:0pt;margin-bottom:0pt">Dijkstra's algorithm (shortest path, weighted med eller uden direction)</p>
+					<ul>
+						<li>O(v^2) uden heap eller O( E logv) med heap, hvis E er kanter og V er noder)</li>
+						<li>Dials algorithm</li>
+						<li>A* search algorithm</li>
+					</ul>
+					</li>
+				</ul>
+				</li>
+				<li><p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Træsøgning</span></p>
+				<ul>
+					<li>Preorder (DFS)</li>
+					<li>In-order (DFS)</li>
+					<li>Post-order (DFS)</li>
+					<li>Outorder (DFS)</li>
+					<li>Level-order (BFS)</li>
+				</ul>
+				</li>
+				<li><p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Spanning Trees (minimum)</span></p>
+				<ul>
+					<li>Prims algoritm</li>
+					<li>Kruskal's algorithm</li>
+				</ul>
+				</li>
+				<li><p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Euler Tour</span></p>
+				<ul>
+					<li>					<table style="border:1px solid;border-collapse:collapse">
+						<tbody><tr>
+							<td style="border:1px solid">Given: An un</td>
+							<td style="border:1px solid">directed graph</td>
+						</tr>
+					</tbody></table>
+					<ul>
+						<li>Find a path which uses every edge exactly once. This is called an Eulerian tour. If the path begins and ends at the same vertex, it is called a Eulerian circuit.</li>
+						<li>A graph has an Eulerian circuit if and only if it is connected (once you throw out all nodes of degree 0) and every node has `even degree'.</li>
+						<li>A graph has an Eulerian path if and only if it is connected and every node except two has even degree.</li>
+						<li>In the second case, one of the two nodes which has odd degree must be the start node, while the other is the end node.</li>
+					</ul>
+					</li>
+					<li><p style="margin-top:0pt;margin-bottom:0pt">isEulerian</p>
+					<ul>
+						<li>Has Path: semi-eulerian</li>
+						<li>Has circuit: eulerian</li>
+					</ul>
+					</li>
+				</ul>
+				</li>
+				<li><p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Brug</span></p>
+				<ul>
+					<li>Antallet af kanter</li>
+					<li>Korteste vej mellem a og b</li>
+					<li>Korteste vej mellem alle noder</li>
+					<li>Hvor mange noder kan man nå fra a og 100 væk</li>
+					<li>Hvor mange noder kan fjernes og man stadig kan besøge alle noder fra alle noder</li>
+				</ul>
+				</li>
+				<li><p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Recursive descent</span></p>
+				<ul>
+					<li>Building recursively like DFS but building.</li>
+				</ul>
+				</li>
+				<li><p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Finding cycles</span></p>
+				<ul>
+					<li>Use DFS and backtrack</li>
+					<li>Uneven</li>
+					<li>Even</li>
+					<li>Negative cycle?</li>
+				</ul>
+				</li>
+				<li><p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Is a graph bipartite</span></p>
+				<ul>
+					<li>Any uneven cycles (is 2 colorable)</li>
+				</ul>
+				</li>
+				<li><span style="font-weight:bold">Maximum number of edges that can be added to a bipartite graph and have it stay biparite</span></li>
+				<li><p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">chromatic coloring of graphs - minimum number of colors needed with no adjacent vertices having same color)</span></p>
+				<ul>
+					<li>Can it be colored without any neighbouring nodes having the same color. Just color using DFS (or bfs).</li>
+				</ul>
+				</li>
+				<li><p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Coloring a graph with m colors</span></p>
+				<ul>
+					<li><br>
+					</li>
+				</ul>
+				</li>
+				<li><p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Articulation points (Bliver en graf disconnected hvis man fjerner en knude)</span></p>
+				<ul>
+					<li>Flood fill efter at have fjernet knuden.</li>
+					<li>Hvis directed skal man teste om det er disconnected fra forskellige knuder. Flood fill fra knuden og flood fill fra en start knude og se om sættene med besøgte knuder er disjointe.</li>
+					<li>Efficient algorithm  with traversal times</li>
+				</ul>
+				</li>
+				<li><span style="font-weight:bold">Finding bridges</span></li>
+				<li><span style="font-weight:bold">handshaking lemma</span></li>
+				<li><span style="font-weight:bold">Topological sorting</span></li>
+				<li><span lang="da-DK"><span style="font-weight:bold">transitive closures</span></span></li>
+				<li><span lang="da-DK"><span style="font-weight:bold">Connected components</span></span></li>
+				<li><p lang="da-DK" style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Hamiltonian cycle</span></p>
+				<ul>
+					<li><span lang="da-DK">Only if no articulation points</span></li>
+				</ul>
+				</li>
+				<li><span lang="da-DK"><span style="font-weight:bold">Hamiltonian path</span></span></li>
+				<li><p lang="da-DK" style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Traveling salesman</span></p>
+				<ul>
+					<li><span style="font-weight:bold">Using dp: n^2*2^n</span></li>
+					<li><span style="font-weight:bold">Else n!</span></li>
+				</ul>
+				</li>
+				<li><p lang="da-DK" style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Transitive closure</span></p>
+				<ul>
+					<li><span lang="da-DK">Boolean matrix beskriver om det er path fra i til j.</span></li>
+					<li><span lang="da-DK">Hvis graf er tæt på floydwarshall (v^3) eller kør bfs/dfs fra alle knuder (v^2)</span></li>
+				</ul>
+				</li>
+			</ul>
+			<p style="margin-top:0pt;margin-bottom:0pt">If the number of legs in the journey exceeds N, instead of calculating each path, calculate the shortest path between all pairs of vertices, and then simply paste the shortest path for each leg of the journey together to get the entire journey.</p>
+			<p style="margin-top:0pt;margin-bottom:0pt">Good for negative edges but not is there are negative cycles. In that case I think you could  say w = w * -1 + biggest w in set of ws and then check for the longest path instead to find the shortest.</p>
+			<p style="margin-top:0pt;margin-bottom:0pt">Add exstra list to check for the shortest path with fewest nodes. And then check if  the event of a tie.</p>
+			<br>
+			<br>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Sorteringsalgoritmer</span></p>
+			<ul>
+				<li><p style="margin-top:0pt;margin-bottom:0pt">O(n^2)</p>
+				<ul>
+					<li>bubble sort</li>
+					<li>Selection</li>
+					<li>insertion</li>
+				</ul>
+				</li>
+				<li><p style="margin-top:0pt;margin-bottom:0pt">O(n log n)</p>
+				<ul>
+					<li><span style="text-decoration:underline">quick sort</span></li>
+					<li>Merge</li>
+					<li>Heap</li>
+				</ul>
+				</li>
+				<li><p style="margin-top:0pt;margin-bottom:0pt">O(n) ** obs special</p>
+				<ul>
+					<li>Counting</li>
+					<li>Radix</li>
+					<li>Bucket</li>
+				</ul>
+				</li>
+				<li>Binær søgning</li>
+			</ul>
+			<br>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Array search</span></p>
+			<ul>
+				<li>O(n) Linear search</li>
+				<li>O(log2 n) Binary Search (Java Collections.binarySearch)</li>
+				<li>O(log3 n) Ternary search</li>
+				<li>O(1) hashing</li>
+				<li>Jump search</li>
+				<li><span style="text-decoration:underline">Quick Select</span></li>
+			</ul>
+			<br>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold;text-decoration:underline">Branch and bound</span></p>
+			<ul>
+				<li><span style="font-weight:bold;text-decoration:underline">Evt. Dp på sets vha. Opbevaring I bitset/ints</span></li>
+				<li><span style="font-weight:bold;text-decoration:underline">FIFO</span></li>
+				<li><span style="font-weight:bold;text-decoration:underline">LIFO</span></li>
+				<li><span style="font-weight:bold;text-decoration:underline">LeastCost-BB</span></li>
+			</ul>
+			<br>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Løkker</span></p>
+			<ul>
+				<li>Break</li>
+				<li>Continue</li>
+				<li>Return</li>
+				<li>Nestede løkker</li>
+			</ul>
+			<br>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Andet</span></p>
+			<ul>
+				<li>Binær søgning</li>
+				<li>GCD</li>
+				<li>Primality test (sqrt(N))</li>
+			</ul>
+			<br>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Randomized algorithms</span></p>
+			<ul>
+				<li>Monte carlo</li>
+				<li>Las vegas</li>
+			</ul>
+		</div>
+		<div style="position:absolute;left:840px;top:955px;width:607px">
+			<br>
+			<table style="border:0px">
+				<tbody><tr>
+					<td style="border:0px">Search</td>
+					<td style="border:0px">Time</td>
+					<td style="border:0px">Space</td>
+					<td style="border:0px">When to use</td>
+				</tr>
+				<tr>
+					<td style="border:0px">DFS</td>
+					<td style="border:0px">O(<span style="font-style:italic">c</span><sup style="font-style:italic">k</sup>)</td>
+					<td style="border:0px">O(<span style="font-style:italic">k</span>)</td>
+					<td style="border:0px">Must search tree anyway, know the level the answers are on, or you aren't looking for the shallowest number.</td>
+				</tr>
+				<tr>
+					<td style="border:0px">BFS</td>
+					<td style="border:0px">O(<span style="font-style:italic">c</span><sup style="font-style:italic">d</sup>)</td>
+					<td style="border:0px">O(<span style="font-style:italic">c</span><sup style="font-style:italic">d</sup>)</td>
+					<td style="border:0px">Know answers are very near top of tree, or want shallowest answer.</td>
+				</tr>
+				<tr>
+					<td style="border:0px">DFS+ID</td>
+					<td style="border:0px">O(<span style="font-style:italic">c</span><sup style="font-style:italic">d</sup>)</td>
+					<td style="border:0px">O(<span style="font-style:italic">d</span>)</td>
+					<td style="border:0px">Want to do BFS, don't have enough space, and can spare the time.</td>
+				</tr>
+			</tbody></table>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-family:Verdana;color:black;font-style:italic">d</span>&nbsp;is the depth of the answer&nbsp;</p>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-family:Verdana;color:black;font-style:italic">k</span>&nbsp;is the depth searched&nbsp;</p>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-family:Verdana;color:black;font-style:italic">d &lt;= k</span></p>
+		</div>
+		<!-- InkNode is not supported -->
+		<!-- InkNode is not supported -->
+	
+
+</body></html>

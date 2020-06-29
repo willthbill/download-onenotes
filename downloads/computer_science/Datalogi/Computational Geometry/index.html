@@ -1,0 +1,192 @@
+<html lang="en-US"><head>
+		<title>Computational Geometry</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="created" content="2019-07-16T15:48:00.0000000">
+	</head>
+	<body data-absolute-enabled="true" style="font-family:Calibri;font-size:11pt"><h1>Computational Geometry</h1>
+		<div style="position:absolute;left:48px;top:115px;width:445px">
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Convex</span></p>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Concave</span></p>
+			<br>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Convex hull</span></p>
+			<ul>
+				<li>Graham scan</li>
+			</ul>
+			<br>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Colinear points</span></p>
+			<ul>
+				<li>Len(A, B) + Len(B, C) = Len(A, C)</li>
+			</ul>
+			<br>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Determinant</span></p>
+			<!-- Processing ParagraphNode failed -->
+			<ul>
+				<li>				<!-- Processing ParagraphNode failed -->
+</li>
+			</ul>
+			<br>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Dot product</span></p>
+			<!-- Processing ParagraphNode failed -->
+			<ul>
+				<li>				<!-- Processing ParagraphNode failed -->
+</li>
+			</ul>
+			<br>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Angle of two vector</span></p>
+			<math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mrow>
+					<mrow>
+						<mi>c</mi>
+						<mi>o</mi>
+						<mi>s</mi>
+					</mrow>
+					<mo>⁡</mo>
+					<mrow>
+						<mfenced>
+							<mi>v</mi>
+						</mfenced>
+					</mrow>
+				</mrow>
+				<mo>=</mo>
+				<mfrac>
+					<mrow>
+						<mi>a</mi>
+						<mo>.</mo>
+						<mi>b</mi>
+					</mrow>
+					<mrow>
+						<mfenced open="|" close="|">
+							<mi>a</mi>
+						</mfenced>
+						<mo>⋅</mo>
+						<mfenced open="|" close="|">
+							<mi>b</mi>
+						</mfenced>
+					</mrow>
+				</mfrac>
+			</math>
+			<br>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Turn 90 degree</span></p>
+			<math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mi>v</mi>
+				<mfenced>
+					<mrow>
+						<mi>a</mi>
+						<mo>,</mo>
+						<mo>&nbsp;</mo>
+						<mi>b</mi>
+					</mrow>
+				</mfenced>
+				<mo>→</mo>
+				<mi>v</mi>
+				<mfenced>
+					<mrow>
+						<mo>−</mo>
+						<mi>b</mi>
+						<mo>,</mo>
+						<mo>&nbsp;</mo>
+						<mi>a</mi>
+					</mrow>
+				</mfenced>
+			</math>
+			<ul>
+				<li>				<math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+					<mi>v</mi>
+					<mfenced>
+						<mrow>
+							<mi>a</mi>
+							<mo>,</mo>
+							<mo>&nbsp;</mo>
+							<mi>b</mi>
+						</mrow>
+					</mfenced>
+					<mo>→</mo>
+					<mi>v</mi>
+					<mfenced>
+						<mrow>
+							<mo>−</mo>
+							<mi>b</mi>
+							<mo>,</mo>
+							<mo>&nbsp;</mo>
+							<mi>a</mi>
+						</mrow>
+					</mfenced>
+				</math>
+				</li>
+			</ul>
+			<br>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Turn -90 degree</span></p>
+			<math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mi>v</mi>
+				<mfenced>
+					<mrow>
+						<mi>a</mi>
+						<mo>,</mo>
+						<mo>&nbsp;</mo>
+						<mi>b</mi>
+					</mrow>
+				</mfenced>
+				<mo>→</mo>
+				<mi>v</mi>
+				<mfenced>
+					<mrow>
+						<mi>b</mi>
+						<mo>,</mo>
+						<mo>&nbsp;</mo>
+						<mo>−</mo>
+						<mi>a</mi>
+					</mrow>
+				</mfenced>
+			</math>
+			<ul>
+				<li>				<math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+					<mi>v</mi>
+					<mfenced>
+						<mrow>
+							<mi>a</mi>
+							<mo>,</mo>
+							<mo>&nbsp;</mo>
+							<mi>b</mi>
+						</mrow>
+					</mfenced>
+					<mo>→</mo>
+					<mi>v</mi>
+					<mfenced>
+						<mrow>
+							<mi>b</mi>
+							<mo>,</mo>
+							<mo>&nbsp;</mo>
+							<mo>−</mo>
+							<mi>a</mi>
+						</mrow>
+					</mfenced>
+				</math>
+				</li>
+			</ul>
+			<br>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Is v1 and v2 ortogonal</span></p>
+			<ul>
+				<li>Turn 90 degrees and check if paralel</li>
+			</ul>
+			<br>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Is v1 and v2 paralel</span></p>
+			<ul>
+				<li>Is dot product zero</li>
+			</ul>
+			<br>
+			<p style="margin-top:0pt;margin-bottom:0pt"><span style="font-weight:bold">Clockwise turn between two vectors a and b</span></p>
+			<ul>
+				<li>Is determinant less than 0</li>
+			</ul>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+		</div>
+		<div style="position:absolute;left:552px;top:187px;width:624px">
+			<p style="margin-top:0pt;margin-bottom:0pt">A</p>
+		</div>
+	
+
+</body></html>
