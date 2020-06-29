@@ -21,16 +21,20 @@ const fetch = (url, options) => {
 }
 
 const fixWindowsStuff = s => {
-    return s
-    .replace("/","")
-    .replace("\\","")
-    .replace(":","")
-    .replace("*","")
-    .replace("?","")
-    .replace("\"","")
-    .replace("<","")
-    .replace(">","")
-    .replace("|","")
+    let pre = "";
+    while(pre != s){
+        pre = s;
+        s = s.replace("/","")
+        .replace("\\","")
+        .replace(":","")
+        .replace("*","")
+        .replace("?","")
+        .replace("\"","")
+        .replace("<","")
+        .replace(">","")
+        .replace("|","")
+    }
+    return s;
 }
 
 const config = {

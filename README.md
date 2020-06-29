@@ -22,3 +22,7 @@ npm install
 3. run the script
 
 npm run start
+
+4. In case of any problems. Firstly, try to generate a new access token. Secondly, wait a few minutes (10 minutes). If it still does not work and you followed the above steps - then it is probably a bug by me.
+
+5. Once everything is downloaded - open the index.html file inside the downloads folder in your browser.
